@@ -45,7 +45,9 @@ export default async function handler(req, res) {
       return res.status(500).json({ error });
     }
 
-    return res.status(200).json({ success: true });
+    // ✅ SUCCESS → REDIRECT TO THANK YOU PAGE
+    return res.redirect(302, '/thanks.html');
+
   } catch (err) {
     console.error('CRASH:', err);
     return res.status(500).json({ crash: err.message });
