@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get Started | ShikadoClips</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background: #0a0a0f;
+      color: #f5f5f0;
+      font-family: 'DM Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-6">
+
+  <div class="max-w-xl w-full bg-[#151520] border border-white/10 rounded-xl p-10">
+    <h1 class="text-3xl font-bold mb-2">
+      Start with <span class="text-yellow-400">ShikadoClips</span>
+    </h1>
+    <p class="text-white/50 mb-8">
+      Share your details and we’ll begin onboarding.  
+      <br/>Clippings start within <strong>2–3 business days</strong>.
+    </p>
+
+    <form action="/api/lead" method="POST" class="space-y-5">
+
+      <input type="hidden" name="source" value="website" />
+
+      <div>
+        <label class="block text-sm mb-1">Name</label>
+        <input name="name" required class="w-full p-3 rounded bg-black/40 border border-white/10" />
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Email</label>
+        <input name="email" type="email" required class="w-full p-3 rounded bg-black/40 border border-white/10" />
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Country</label>
+        <input name="country" required class="w-full p-3 rounded bg-black/40 border border-white/10" />
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Phone / WhatsApp</label>
+        <input name="phone" required class="w-full p-3 rounded bg-black/40 border border-white/10" />
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Plan Interest</label>
+        <select name="plan" class="w-full p-3 rounded bg-black/40 border border-white/10">
+          <option>Starter</option>
+          <option selected>Growth</option>
+          <option>Authority</option>
+          <option>Custom</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-sm mb-1">Message</label>
+        <textarea name="message" rows="4" class="w-full p-3 rounded bg-black/40 border border-white/10"></textarea>
+      </div>
+
+      <button type="submit" class="w-full mt-6 py-3 bg-yellow-400 text-black font-bold rounded">
+        Submit & Continue
+      </button>
+
+    </form>
+  </div>
+
+</body>
+</html>
