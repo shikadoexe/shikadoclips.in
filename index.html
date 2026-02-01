@@ -291,23 +291,18 @@
             border-color: var(--gold);
             background: rgba(212, 175, 55, 0.1);
         }
-    /* =========================
-   MOBILE CTA CLIP FIX
-   ========================= */
+    /* FINAL FIX — Instagram WebView CTA clipping */
+.cta-wrapper {
+  margin-top: 1.5rem;
+  padding-bottom: 0.5rem;
+}
 
 @media (max-width: 640px) {
-  #custom .glass {
-    padding-bottom: 2.5rem;
+  .cta-wrapper {
+    padding-bottom: 1.25rem;
   }
 }
 
-#custom .btn-primary {
-  margin-top: 1.5rem;
-}
-
-.reveal {
-  will-change: transform, opacity;
-}
 
     </style>
 </head>
@@ -710,9 +705,12 @@
                         <div id="service-summary" class="flex justify-between text-cream/50"></div>
                     </div>
 
-                    <a href="/interest.html?plan=Custom" class="btn-primary w-full rounded-sm text-sm">
-  Request Custom Quote
-</a>
+                    <div class="cta-wrapper">
+  <a href="/interest.html?plan=Custom" class="btn-primary w-full rounded-sm text-sm">
+    Request Custom Quote
+  </a>
+</div>
+
 
                 </div>
             </div>
