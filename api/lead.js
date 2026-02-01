@@ -57,4 +57,9 @@ export default async function handler(req, res) {
     console.error(err);
     return res.status(500).end();
   }
+
+if (body.company) {
+  return res.redirect(302, '/thanks.html');
+}
+
 }
