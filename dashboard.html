@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Client Dashboard | ShikadoClips</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<h1>Client Dashboard</h1>
+<div id="content">Loading...</div>
+
+<script>
+const supabase = supabaseJs.createClient(
+  'https://YOUR_PROJECT_ID.supabase.co',
+  'YOUR_PUBLIC_ANON_KEY'
+);
+
+async function loadDashboard() {
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) {
+    window.location.href = '/login.html';
+    return;
+  }
+
+  const { data, error } = await supabase
+    .from('clients')
+    .select('*')
+    .eq('user_id', user.id)
+    .single();
+
+  if (error) {
+    document.getElementById('content').innerText = 'No active plan.';
+    return;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <p><strong>Name:</strong> ${data.name}</p>
+    <p><strong>Plan:</strong> ${data.plan_name}</p>
+    <p><strong>Status:</strong> ${data.status}</p>
+    <p><strong>Clips / Month:</strong> ${data.clips_per_month}</p>
+    <p><strong>Platforms:</strong> ${data.platforms}</p>
+    <p><strong>Start:</strong> ${data.plan_start_date}</p>
+    <p><strong>Expiry:</strong> ${data.plan_end_date}</p>
+  `;
+}
+
+loadDashboard();
+</script>
+
+</body>
+</html>
