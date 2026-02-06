@@ -9,7 +9,7 @@
 <h2>Client Login</h2>
 
 <input id="email" type="email" placeholder="Email">
-<button onclick="login()">Send Login Link</button>
+<button id="loginBtn">Send Login Link</button>
 
 <script>
 const supabase = window.supabase.createClient(
@@ -17,18 +17,22 @@ const supabase = window.supabase.createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2eHJ3aGdpYWpyZHNoc2tveHJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2ODk5MjcsImV4cCI6MjA4NTI2NTkyN30._aoe9APFDK6-kVxUvSX7GhmW1WVmvgC7dm1HfYL2msE'
 );
 
-async function login() {
+document.getElementById('loginBtn').onclick = async () => {
   const email = document.getElementById('email').value;
 
-  await supabase.auth.signInWithOtp({
+  const { error } = await supabase.auth.signInWithOtp({
     email,
     options: {
       emailRedirectTo: 'https://shikadoclips.in/dashboard.html'
     }
   });
 
-  alert('Check your email for the login link');
-}
+  if (error) {
+    alert(error.message);
+  } else {
+    alert('Check your email for the login link');
+  }
+};
 </script>
 
 </body>
