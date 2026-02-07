@@ -19,19 +19,28 @@
   </div>
 
 <script>
+console.log('LOGIN PAGE JS LOADED');
+
 const supabase = window.supabase.createClient(
   'https://YOUR_PROJECT_ID.supabase.co',
   'YOUR_PUBLIC_ANON_KEY'
 );
 
-document.getElementById('googleLogin').onclick = async () => {
-  await supabase.auth.signInWithOAuth({
+document.getElementById('googleLogin').addEventListener('click', async () => {
+  console.log('GOOGLE BUTTON CLICKED');
+
+  const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
       redirectTo: 'https://shikadoclips.in/dashboard.html'
     }
   });
-};
+
+  if (error) {
+    console.error('OAuth error:', error);
+    alert(error.message);
+  }
+});
 </script>
 
 </body>
