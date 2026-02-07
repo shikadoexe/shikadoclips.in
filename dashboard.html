@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Client Dashboard | ShikadoClips</title>
+  <title>Dashboard | ShikadoClips</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
+<body class="bg-[#0a0a0f] text-white min-h-screen p-10">
 
-<h1>Client Dashboard</h1>
-<div id="content">Loading...</div>
+<div id="app" class="max-w-3xl mx-auto hidden">
+  <h1 class="text-3xl font-bold mb-6">Client Dashboard</h1>
+  <div id="data" class="bg-white/5 border border-white/10 rounded-xl p-6"></div>
+</div>
 
 <script>
-const supabase = supabaseJs.createClient(
-  'https://tvxrwhgiajrdshskoxrn.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2eHJ3aGdpYWpyZHNoc2tveHJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2ODk5MjcsImV4cCI6MjA4NTI2NTkyN30._aoe9APFDK6-kVxUvSX7GhmW1WVmvgC7dm1HfYL2msE'
+const supabase = window.supabase.createClient(
+  'https://YOUR_PROJECT_ID.supabase.co',
+  'YOUR_PUBLIC_ANON_KEY'
 );
 
-async function loadDashboard() {
+(async () => {
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
@@ -23,38 +26,25 @@ async function loadDashboard() {
     return;
   }
 
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from('clients')
     .select('*')
     .eq('user_id', user.id)
     .single();
 
-  if (error) {
-    document.getElementById('content').innerText = 'No active plan.';
+  document.getElementById('app').classList.remove('hidden');
+
+  if (!data) {
+    document.getElementById('data').innerHTML = 'No active subscription.';
     return;
   }
 
-  document.getElementById('content').innerHTML = `
-    <p><strong>Name:</strong> ${data.name}</p>
+  document.getElementById('data').innerHTML = `
     <p><strong>Plan:</strong> ${data.plan_name}</p>
     <p><strong>Status:</strong> ${data.status}</p>
-    <p><strong>Clips / Month:</strong> ${data.clips_per_month}</p>
-    <p><strong>Platforms:</strong> ${data.platforms}</p>
-    <p><strong>Start:</strong> ${data.plan_start_date}</p>
-    <p><strong>Expiry:</strong> ${data.plan_end_date}</p>
+    <p><strong>Expires:</strong> ${data.plan_end_date}</p>
   `;
-<button onclick="logout()">Logout</button>
-
-<script>
-async function logout() {
-  await supabase.auth.signOut();
-  window.location.href = '/login.html';
-}
-</script>
-
-}
-
-loadDashboard();
+})();
 </script>
 
 </body>
