@@ -1,37 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Client Login | ShikadoClips</title>
+  <meta charset="UTF-8" />
+  <title>Login | ShikadoClips</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
+<body class="bg-[#0a0a0f] flex items-center justify-center min-h-screen text-white">
 
-<h2>Client Login</h2>
+  <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-xl p-10 w-full max-w-md text-center">
+    <h1 class="text-3xl font-bold mb-2">Shikado<span class="text-yellow-400">Clips</span></h1>
+    <p class="text-white/50 mb-8">Client Access Portal</p>
 
-<input id="email" type="email" placeholder="Email">
-<button id="loginBtn">Send Login Link</button>
+    <button id="googleLogin"
+      class="w-full py-3 rounded-lg bg-white text-black font-semibold hover:opacity-90 transition">
+      Continue with Google
+    </button>
+  </div>
 
 <script>
 const supabase = window.supabase.createClient(
-  'https://tvxrwhgiajrdshskoxrn.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2eHJ3aGdpYWpyZHNoc2tveHJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2ODk5MjcsImV4cCI6MjA4NTI2NTkyN30._aoe9APFDK6-kVxUvSX7GhmW1WVmvgC7dm1HfYL2msE'
+  'https://YOUR_PROJECT_ID.supabase.co',
+  'YOUR_PUBLIC_ANON_KEY'
 );
 
-document.getElementById('loginBtn').onclick = async () => {
-  const email = document.getElementById('email').value;
-
-  const { error } = await supabase.auth.signInWithOtp({
-    email,
+document.getElementById('googleLogin').onclick = async () => {
+  await supabase.auth.signInWithOAuth({
+    provider: 'google',
     options: {
-      emailRedirectTo: 'https://shikadoclips.in/dashboard.html'
+      redirectTo: 'https://shikadoclips.in/dashboard.html'
     }
   });
-
-  if (error) {
-    alert(error.message);
-  } else {
-    alert('Check your email for the login link');
-  }
 };
 </script>
 
