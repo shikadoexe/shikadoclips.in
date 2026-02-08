@@ -13,39 +13,43 @@
 </div>
 
 <script>
-const supabase = window.supabase.createClient(
-  'https://tvxrwhgiajrdshskoxrn.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2eHJ3aGdpYWpyZHNoc2tveHJuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2ODk5MjcsImV4cCI6MjA4NTI2NTkyN30._aoe9APFDK6-kVxUvSX7GhmW1WVmvgC7dm1HfYL2msE'
+const supabaseClient = window.supabase.createClient(
+  'https://gyupdjgmmfdzlrlbjckk.supabase.co',
+  'YOUR_PUBLIC_ANON_KEY'
 );
 
 (async () => {
-  const { data: { user } } = await supabase.auth.getUser();
+  const status = document.getElementById('data');
+  status.innerHTML = '<p class="text-white/40">Loading dashboard…</p>';
 
-  if (!user) {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+
+  if (!session) {
     window.location.href = '/login.html';
     return;
   }
 
-  const { data } = await supabase
-    .from('clients')
-    .select('*')
-    .eq('user_id', user.id)
-    .single();
-
   document.getElementById('app').classList.remove('hidden');
 
-  if (!data) {
-    document.getElementById('data').innerHTML = 'No active subscription.';
+  const { data, error } = await supabaseClient
+    .from('clients')
+    .select('*')
+    .eq('user_id', session.user.id)
+    .single();
+
+  if (error || !data) {
+    status.innerHTML = '<p class="text-white/50">No active subscription yet.</p>';
     return;
   }
 
-  document.getElementById('data').innerHTML = `
+  status.innerHTML = `
     <p><strong>Plan:</strong> ${data.plan_name}</p>
     <p><strong>Status:</strong> ${data.status}</p>
     <p><strong>Expires:</strong> ${data.plan_end_date}</p>
   `;
 })();
 </script>
+
 
 </body>
 </html>
