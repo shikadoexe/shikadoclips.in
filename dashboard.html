@@ -47,6 +47,13 @@ const supabaseClient = window.supabase.createClient(
     <p><strong>Status:</strong> ${data.status}</p>
     <p><strong>Expires:</strong> ${data.plan_end_date}</p>
   `;
+  if (session.user.user_metadata?.role === 'admin') {
+  document.body.insertAdjacentHTML(
+    'beforeend',
+    '<a href="/admin.html" class="fixed bottom-6 right-6 text-xs text-white/60">Admin</a>'
+  );
+}
+
 })();
 </script>
 
