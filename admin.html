@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard | ShikadoClips</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body class="bg-[#0a0a0f] text-white min-h-screen p-10">
+
+<h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
+
+<div id="status" class="text-white/50 mb-6">Loading…</div>
+
+<div id="tableWrapper" class="hidden">
+  <table class="w-full border border-white/10 rounded-lg overflow-hidden">
+    <thead class="bg-white/10">
+      <tr>
+        <th class="p-3 text-left">Client</th>
+        <th class="p-3 text-left">Plan</th>
+        <th class="p-3 text-left">Status</th>
+        <th class="p-3 text-left">Expires</th>
+      </tr>
+    </thead>
+    <tbody id="clientsTable"></tbody>
+  </table>
+</div>
+
+<script>
+const supabaseClient = window.supabase.createClient(
+  'https://gyupdjgmmfdzlrlbjckk.supabase.co',
+  'YOUR_PUBLIC_ANON_KEY'
+);
+
+(async () => {
+  const { data: { session } } = await supabaseClient.auth.getSession();
+
+  if (!session) {
+    window.location.href = '/login.html';
+    return;
+  }
+
+  const role = session.user.user_metadata?.role;
+
+  if (role !== 'admin') {
+    document.getElementById('status').innerText = 'Access denied';
+    return;
+  }
+
+  document.getElementById('status').innerText = 'Fetching clients…';
+
+  const { data, error } = await supabaseClient
+    .from('clients')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    document.getElementById('status').innerText = 'Error loading clients';
+    return;
+  }
+
+  document.getElementById('tableWrapper').classList.remove('hidden');
+  document.getElementById('status').remove();
+
+  const table = document.getElementById('clientsTable');
+
+  data.forEach(client => {
+    const row = document.createElement('tr');
+    row.className = 'border-t border-white/10';
+
+    row.innerHTML = `
+      <td class="p-3">${client.email || '—'}</td>
+      <td class="p-3">${client.plan_name}</td>
+      <td class="p-3">${client.status}</td>
+      <td class="p-3">${client.plan_end_date}</td>
+    `;
+
+    table.appendChild(row);
+  });
+})();
+</script>
+
+</body>
+</html>
