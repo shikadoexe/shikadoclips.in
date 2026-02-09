@@ -29,14 +29,17 @@ export default async function handler(req, res) {
 
     console.log('STEP 4: Inserting into Supabase');
 
-    const { error } = await supabase.from('leads').insert([
-      {
-        name,
-        email,
-        message,
-        plan_interest: plan,
-        source: 'website'
-      }
+const { error } = await supabase.from('leads').insert([
+  {
+    name,
+    email,
+    country,
+    message,
+    plan_interest: plan,
+    source: 'website'
+  }
+]);
+
     ]);
 
     console.log('STEP 5: Insert attempted');
