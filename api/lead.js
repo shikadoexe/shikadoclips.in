@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
     console.log('BODY:', body);
 
-    const { name, email, phone, message, plan } = body;
+    const { name, email, message, plan } = body;
 
     console.log('STEP 4: Inserting into Supabase');
 
@@ -33,7 +33,6 @@ export default async function handler(req, res) {
       {
         name,
         email,
-        phone,
         message,
         plan_interest: plan,
         source: 'website'
