@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     const { name, email, message, plan } = body;
 
     if (!name || !email) {
-      return res.redirect(302, '/thankyou.html?status=error');
+      return res.redirect(302, '/thanks.html?status=error');
     }
 
     const { error } = await supabase.from('leads').insert([
@@ -35,14 +35,14 @@ export default async function handler(req, res) {
 
     if (error) {
       console.error('SUPABASE ERROR:', error);
-      return res.redirect(302, '/thankyou.html?status=error');
+      return res.redirect(302, '/thanks.html?status=error');
     }
 
     // ✅ SUCCESS → REDIRECT ONLY
-    return res.redirect(302, '/thankyou.html');
+    return res.redirect(302, '/thanks.html');
 
   } catch (err) {
     console.error('SERVER CRASH:', err);
-    return res.redirect(302, '/thankyou.html?status=error');
+    return res.redirect(302, '/thanks.html?status=error');
   }
 }
