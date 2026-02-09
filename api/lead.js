@@ -29,10 +29,16 @@ export default async function handler(req, res) {
       }
     ]);
 
-    if (error) {
-      console.error(error);
-      return res.status(500).json({ error: 'Database insert failed' });
-    }
+if (error) {
+  console.error('SUPABASE ERROR FULL:', error);
+  return res.status(500).json({
+    message: error.message,
+    code: error.code,
+    details: error.details,
+    hint: error.hint
+  });
+}
+
 
     return res.status(200).json({ success: true });
   } catch (err) {
