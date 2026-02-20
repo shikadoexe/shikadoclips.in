@@ -1,78 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Get Started | ShikadoClips</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Request Access | ShikadoClips</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
-  <style>
-    body {
-      background: #0a0a0f;
-      color: #f5f5f0;
-      font-family: 'DM Sans', sans-serif;
-    }
-  </style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Inter', sans-serif; }
+.glow:hover {
+  box-shadow: 0 0 20px rgba(250, 204, 21, 0.5);
+}
+</style>
 </head>
-<body class="min-h-screen flex items-center justify-center px-6">
 
-  <div class="max-w-xl w-full bg-[#151520] border border-white/10 rounded-xl p-10">
-    <h1 class="text-3xl font-bold mb-2">
-      Start with <span class="text-yellow-400">ShikadoClips</span>
-    </h1>
-    <p class="text-white/50 mb-8">
-      Share your details and we’ll begin onboarding.  
-      <br/>Clippings start within <strong>2–3 business days</strong>.
-    </p>
+<body class="bg-black text-white flex items-center justify-center min-h-screen px-6">
 
-    <form action="/api/lead" method="POST" class="space-y-5">
-      
-      <input type="text" name="company" style="display:none">
+<div id="card" class="w-full max-w-xl bg-white/5 border border-white/10 backdrop-blur-lg p-10 rounded-xl opacity-0 translate-y-10">
 
-      <input type="hidden" name="source" value="website" />
+<h1 class="text-3xl font-bold mb-6 text-center">
+Request Growth Access
+</h1>
 
-      <div>
-        <label class="block text-sm mb-1">Name</label>
-        <input name="name" required class="w-full p-3 rounded bg-black/40 border border-white/10" />
-      </div>
+<p class="text-white/50 text-center mb-8 text-sm">
+Tell us about your content. We’ll review and respond within 24 hours.
+</p>
 
-      <div>
-        <label class="block text-sm mb-1">Email</label>
-        <input name="email" type="email" required class="w-full p-3 rounded bg-black/40 border border-white/10" />
-      </div>
+<form action="/api/lead" method="POST" class="space-y-6">
 
-      <div>
-        <label class="block text-sm mb-1">Country</label>
-        <input name="country" required class="w-full p-3 rounded bg-black/40 border border-white/10" />
-      </div>
+<input type="hidden" name="source" value="website">
+<input type="hidden" name="plan" id="planField">
 
-      <div>
-        <label class="block text-sm mb-1">Phone / WhatsApp</label>
-        <input name="phone" required class="w-full p-3 rounded bg-black/40 border border-white/10" />
-      </div>
+<!-- Name -->
+<div>
+<label class="text-sm text-white/60">Full Name</label>
+<input name="name" required type="text"
+class="w-full mt-2 bg-black border border-white/20 rounded-lg px-4 py-3 focus:border-yellow-400 focus:outline-none transition duration-300">
+</div>
 
-      <div>
-        <label class="block text-sm mb-1">Plan Interest</label>
-        <select name="plan" class="w-full p-3 rounded bg-black/40 border border-white/10">
-          <option>Starter</option>
-          <option selected>Growth</option>
-          <option>Authority</option>
-          <option>Custom</option>
-        </select>
-      </div>
+<!-- Email -->
+<div>
+<label class="text-sm text-white/60">Email</label>
+<input name="email" required type="email"
+class="w-full mt-2 bg-black border border-white/20 rounded-lg px-4 py-3 focus:border-yellow-400 focus:outline-none transition duration-300">
+</div>
 
-      <div>
-        <label class="block text-sm mb-1">Message</label>
-        <textarea name="message" rows="4" class="w-full p-3 rounded bg-black/40 border border-white/10"></textarea>
-      </div>
+<!-- Company -->
+<div>
+<label class="text-sm text-white/60">Channel / Brand Name</label>
+<input name="company" type="text"
+class="w-full mt-2 bg-black border border-white/20 rounded-lg px-4 py-3 focus:border-yellow-400 focus:outline-none transition duration-300">
+</div>
 
-      <button type="submit" class="w-full mt-6 py-3 bg-yellow-400 text-black font-bold rounded">
-        Submit & Continue
-      </button>
+<!-- Message -->
+<div>
+<label class="text-sm text-white/60">Tell us about your content goals</label>
+<textarea name="message" rows="4"
+class="w-full mt-2 bg-black border border-white/20 rounded-lg px-4 py-3 focus:border-yellow-400 focus:outline-none transition duration-300"></textarea>
+</div>
 
-    </form>
-  </div>
+<button type="submit"
+class="w-full bg-yellow-400 text-black font-semibold py-3 rounded-lg glow transition duration-300">
+Submit Request
+</button>
+
+</form>
+
+</div>
+
+<script>
+// Fade-in animation
+gsap.to("#card", {
+  opacity: 1,
+  y: 0,
+  duration: 1,
+  ease: "power3.out"
+});
+
+// Auto capture plan from URL
+const urlParams = new URLSearchParams(window.location.search);
+const plan = urlParams.get('plan');
+if (plan) {
+  document.getElementById('planField').value = plan;
+}
+</script>
 
 </body>
 </html>
