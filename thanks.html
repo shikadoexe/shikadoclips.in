@@ -1,46 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Thank You | ShikadoClips</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    body {
-      background: #0a0a0f;
-      color: #f5f5f0;
-      font-family: system-ui, sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-    }
-    .box {
-      max-width: 520px;
-      padding: 40px;
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      background: #151520;
-      text-align: center;
-    }
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    p {
-      opacity: 0.7;
-      line-height: 1.5;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Received | ShikadoClips</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Inter', sans-serif; }
+.glow {
+  box-shadow: 0 0 30px rgba(250, 204, 21, 0.4);
+}
+</style>
 </head>
-<body>
-  <div class="box">
-    <h1>Thanks — we’ve received your request</h1>
-    <p>
-      Our team will review your details and reach out shortly.  
-      <br /><br />
-      Clippings typically start within <strong>2–3 business days</strong>.
-    </p>
-  </div>
+
+<body class="bg-black text-white flex items-center justify-center min-h-screen px-6">
+
+<div id="card" class="text-center max-w-xl opacity-0 translate-y-10">
+
+<!-- Animated Checkmark -->
+<div class="flex justify-center mb-8">
+<svg id="check" width="100" height="100" viewBox="0 0 52 52" class="glow">
+  <circle cx="26" cy="26" r="25" fill="none" stroke="#facc15" stroke-width="2"/>
+  <path fill="none" stroke="#facc15" stroke-width="3" d="M14 27 l7 7 l17 -17"/>
+</svg>
+</div>
+
+<h1 class="text-4xl font-bold mb-4 text-yellow-400">
+Request Submitted
+</h1>
+
+<p class="text-white/60 mb-8">
+Your growth request has been received.  
+We review every creator manually and respond within 24 hours.
+</p>
+
+<a href="/" class="bg-yellow-400 text-black px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition">
+Return to Homepage
+</a>
+
+</div>
+
+<script>
+gsap.to("#card", {
+  opacity: 1,
+  y: 0,
+  duration: 1,
+  ease: "power3.out"
+});
+
+gsap.from("#check path", {
+  duration: 1,
+  drawSVG: 0,
+  ease: "power2.out"
+});
+</script>
+
 </body>
 </html>
