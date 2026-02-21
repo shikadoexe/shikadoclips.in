@@ -1,152 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ShikadoClips | Growth Systems for Finance & Self-Improvement Creators</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ShikadoClips | Growth Systems for Finance & Self-Improvement Creators</title>
 
-  <meta name="description" content="We build short-form growth systems for finance and self-improvement creators. Turn long-form content into high-retention short-form distribution assets." />
+<meta name="description" content="We build short-form growth systems for finance and self-improvement creators. Turn long-form content into high-retention short-form distribution assets." />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-  </style>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+body { font-family: 'Inter', sans-serif; }
+.card:hover { transform: translateY(-8px); }
+</style>
 </head>
 
-<body class="bg-black text-white">
+<body class="bg-black text-white overflow-x-hidden">
+
+<!-- Subtle Background -->
+<div class="fixed inset-0 -z-10 bg-gradient-to-br from-black via-black to-yellow-400/5"></div>
 
 <!-- NAV -->
 <header class="border-b border-white/10">
-  <div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-    <h1 class="text-2xl font-bold tracking-tight">
-      Shikado<span class="text-yellow-400">Clips</span>
-    </h1>
-    <a href="#pricing" class="text-sm font-semibold bg-yellow-400 text-black px-5 py-2 rounded-md">
-      View Plans
-    </a>
-  </div>
+<div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+<h1 class="text-2xl font-bold tracking-tight">
+Shikado<span class="text-yellow-400">Clips</span>
+</h1>
+<a href="#pricing" class="text-sm font-semibold bg-yellow-400 text-black px-5 py-2 rounded-md hover:opacity-90 transition">
+View Plans
+</a>
+</div>
 </header>
 
 <!-- HERO -->
-<section class="py-24 px-6 text-center">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
-      Short-Form Growth Systems<br/>
-      <span class="text-yellow-400">For Finance & Self-Improvement Creators</span>
-    </h2>
-    <p class="text-white/60 text-lg mb-10">
-      We transform your long-form content into high-retention short-form assets engineered for distribution, authority, and scalable reach.
-    </p>
-    <a href="#pricing" class="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-md">
-      Explore Plans
-    </a>
-  </div>
+<section class="py-28 px-6 text-center reveal">
+<div class="max-w-4xl mx-auto">
+<h2 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+Short-Form Growth Systems<br/>
+<span class="text-yellow-400">For Finance & Self-Improvement Creators</span>
+</h2>
+<p class="text-white/60 text-lg mb-10">
+We transform your long-form content into high-retention short-form assets engineered for distribution, authority and scalable reach.
+</p>
+<a href="#pricing" class="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-md hover:opacity-90 transition">
+Explore Plans
+</a>
+</div>
 </section>
 
-<!-- VALUE SECTION -->
-<section class="py-20 px-6 border-t border-white/10">
-  <div class="max-w-6xl mx-auto text-center">
-    <h3 class="text-3xl font-bold mb-8">
-      1 Long Video → Multiple High-Retention Angles
-    </h3>
-    <p class="text-white/60 mb-12">
-      Designed specifically for creators who teach money, discipline, performance and growth.
-    </p>
+<!-- DEMO SECTION -->
+<section class="py-20 px-6 border-t border-white/10 reveal">
+<div class="max-w-6xl mx-auto text-center">
+<h3 class="text-3xl font-bold mb-8">
+1 Long Video → Multiple High-Retention Angles
+</h3>
+<p class="text-white/60 mb-12">
+Built specifically for creators who teach money, discipline, performance and growth.
+</p>
 
-    <div class="grid md:grid-cols-3 gap-8">
-      
-      <div class="bg-white/5 p-4 rounded-lg border border-white/10">
-        <video controls class="w-full rounded-md">
-          <source src="demo1.mp4" type="video/mp4">
-        </video>
-        <p class="mt-4 text-sm text-white/60">Identity Hook (Discipline / Wealth Mindset)</p>
-      </div>
+<div class="grid md:grid-cols-3 gap-8">
 
-      <div class="bg-white/5 p-4 rounded-lg border border-white/10">
-        <video controls class="w-full rounded-md">
-          <source src="demo2.mp4" type="video/mp4">
-        </video>
-        <p class="mt-4 text-sm text-white/60">Pain Trigger Hook (Financial Mistakes)</p>
-      </div>
+<div class="bg-white/5 p-4 rounded-lg border border-white/10 card transition duration-300">
+<video controls class="w-full rounded-md">
+<source src="demo1.mp4" type="video/mp4">
+</video>
+<p class="mt-4 text-sm text-white/60">Identity Hook</p>
+</div>
 
-      <div class="bg-white/5 p-4 rounded-lg border border-white/10">
-        <video controls class="w-full rounded-md">
-          <source src="demo3.mp4" type="video/mp4">
-        </video>
-        <p class="mt-4 text-sm text-white/60">Tactical Breakdown (Actionable Strategy)</p>
-      </div>
+<div class="bg-white/5 p-4 rounded-lg border border-white/10 card transition duration-300">
+<video controls class="w-full rounded-md">
+<source src="demo2.mp4" type="video/mp4">
+</video>
+<p class="mt-4 text-sm text-white/60">Pain Trigger Hook</p>
+</div>
 
-    </div>
-  </div>
+<div class="bg-white/5 p-4 rounded-lg border border-white/10 card transition duration-300">
+<video controls class="w-full rounded-md">
+<source src="demo3.mp4" type="video/mp4">
+</video>
+<p class="mt-4 text-sm text-white/60">Tactical Breakdown</p>
+</div>
+
+</div>
+</div>
+</section>
+
+<!-- ABOUT US -->
+<section class="py-24 px-6 border-t border-white/10 reveal">
+<div class="max-w-4xl mx-auto text-center">
+<h3 class="text-3xl font-bold mb-8 text-yellow-400">About ShikadoClips</h3>
+
+<p class="text-white/70 text-lg leading-relaxed mb-6">
+My name is Yogeshwar Yadav. I started ShikadoClips with a simple dream — to build real growth systems for serious creators.
+</p>
+
+<p class="text-white/60 leading-relaxed mb-6">
+We are a small team of young creators. Yes, we are teens. But we are serious about our craft. We study retention, hook psychology, pacing and audience behavior every day. We treat this like a long-term mission, not a side project.
+</p>
+
+<p class="text-white/60 leading-relaxed">
+We believe one long video holds massive hidden potential. Our job is to unlock it and turn it into structured short-form growth that builds authority and multiplies reach.
+</p>
+
+<p class="text-white/40 mt-8 text-sm">
+– Yogeshwar Yadav<br>
+Founder, ShikadoClips
+</p>
+
+</div>
 </section>
 
 <!-- PRICING -->
-<section id="pricing" class="py-24 px-6 border-t border-white/10">
-  <div class="max-w-6xl mx-auto text-center">
-    <h3 class="text-4xl font-bold mb-12">
-      Growth Plans
-    </h3>
+<section id="pricing" class="py-24 px-6 border-t border-white/10 reveal">
+<div class="max-w-6xl mx-auto text-center">
+<h3 class="text-4xl font-bold mb-12">
+Growth Plans
+</h3>
 
-    <div class="grid md:grid-cols-3 gap-10">
+<div class="grid md:grid-cols-3 gap-10">
 
-      <!-- 5K PLAN -->
-      <div class="bg-white/5 border border-white/10 p-8 rounded-lg">
-        <h4 class="text-xl font-bold mb-4">Starter Growth</h4>
-        <p class="text-4xl font-extrabold mb-6">₹5K<span class="text-sm text-white/50"> / month</span></p>
-        <ul class="text-white/60 space-y-3 mb-8 text-sm">
-          <li>30 Short-Form Clips</li>
-          <li>1 Platform Formatting</li>
-          <li>Hook Optimization</li>
-          <li>Clean Subtitles</li>
-          <li>72 Hour Turnaround</li>
-        </ul>
-        <a href="/interest.html?plan=5K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md">
-          Request Access
-        </a>
-      </div>
+<div class="bg-white/5 border border-white/10 p-8 rounded-lg card transition duration-300">
+<h4 class="text-xl font-bold mb-4">Starter Growth</h4>
+<p class="text-4xl font-extrabold mb-6">₹5K<span class="text-sm text-white/50"> / month</span></p>
+<ul class="text-white/60 space-y-3 mb-8 text-sm">
+<li>30 Short-Form Clips</li>
+<li>1 Platform Formatting</li>
+<li>Hook Optimization</li>
+<li>Clean Subtitles</li>
+<li>72 Hour Turnaround</li>
+</ul>
+<a href="/interest.html?plan=5K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:opacity-90 transition">
+Request Access
+</a>
+</div>
 
-      <!-- 10K PLAN -->
-      <div class="bg-yellow-400/10 border border-yellow-400 p-8 rounded-lg scale-105">
-        <h4 class="text-xl font-bold mb-4">Scale Engine</h4>
-        <p class="text-4xl font-extrabold mb-6 text-yellow-400">₹10K<span class="text-sm text-white/50"> / month</span></p>
-        <ul class="text-white/70 space-y-3 mb-8 text-sm">
-          <li>45–60 Short Clips</li>
-          <li>2 Platform Distribution</li>
-          <li>Advanced Hook Restructuring</li>
-          <li>Retention-Focused Editing</li>
-          <li>Priority Turnaround</li>
-        </ul>
-        <a href="/interest.html?plan=10K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md">
-          Request Access
-        </a>
-      </div>
+<div class="bg-yellow-400/10 border border-yellow-400 p-8 rounded-lg scale-105 card transition duration-300">
+<h4 class="text-xl font-bold mb-4">Scale Engine</h4>
+<p class="text-4xl font-extrabold mb-6 text-yellow-400">₹10K<span class="text-sm text-white/50"> / month</span></p>
+<ul class="text-white/70 space-y-3 mb-8 text-sm">
+<li>45–60 Short Clips</li>
+<li>2 Platform Distribution</li>
+<li>Advanced Hook Restructuring</li>
+<li>Retention-Focused Editing</li>
+<li>Priority Turnaround</li>
+</ul>
+<a href="/interest.html?plan=10K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:opacity-90 transition">
+Request Access
+</a>
+</div>
 
-      <!-- 15K PLAN -->
-      <div class="bg-white/5 border border-white/10 p-8 rounded-lg">
-        <h4 class="text-xl font-bold mb-4">Authority System</h4>
-        <p class="text-4xl font-extrabold mb-6">₹15K<span class="text-sm text-white/50"> / month</span></p>
-        <ul class="text-white/60 space-y-3 mb-8 text-sm">
-          <li>90+ Short Clips</li>
-          <li>Multi-Platform Distribution</li>
-          <li>Angle Strategy & Structuring</li>
-          <li>Monthly Performance Insights</li>
-          <li>Priority Workflow</li>
-        </ul>
-        <a href="/interest.html?plan=15K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md">
-          Request Access
-        </a>
-      </div>
+<div class="bg-white/5 border border-white/10 p-8 rounded-lg card transition duration-300">
+<h4 class="text-xl font-bold mb-4">Authority System</h4>
+<p class="text-4xl font-extrabold mb-6">₹15K<span class="text-sm text-white/50"> / month</span></p>
+<ul class="text-white/60 space-y-3 mb-8 text-sm">
+<li>90+ Short Clips</li>
+<li>Multi-Platform Distribution</li>
+<li>Angle Strategy & Structuring</li>
+<li>Monthly Performance Insights</li>
+<li>Priority Workflow</li>
+</ul>
+<a href="/interest.html?plan=15K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:opacity-90 transition">
+Request Access
+</a>
+</div>
 
-    </div>
-  </div>
+</div>
+</div>
 </section>
 
 <!-- FOOTER -->
 <footer class="border-t border-white/10 py-10 text-center text-white/40 text-sm">
-  © 2026 ShikadoClips. Built for Finance & Self-Improvement Creators.
+© 2026 ShikadoClips. Built for Finance & Self-Improvement Creators.
 </footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray(".reveal").forEach(section => {
+  gsap.from(section, {
+    scrollTrigger: {
+      trigger: section,
+      start: "top 85%"
+    },
+    opacity: 0,
+    y: 60,
+    duration: 1,
+    ease: "power3.out"
+  });
+});
+</script>
 
 </body>
 </html>
