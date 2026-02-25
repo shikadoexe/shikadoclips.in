@@ -3,195 +3,919 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ShikadoClips | Growth Systems for Finance & Self-Improvement Creators</title>
+<title>ShikadoClips — Short-Form Growth Systems</title>
+<meta name="description" content="Premium short-form growth systems for finance and self-improvement creators. Turn long-form content into high-retention distribution assets." />
 
-<meta name="description" content="We build short-form growth systems for finance and self-improvement creators. Turn long-form content into high-retention short-form distribution assets." />
-
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-body { font-family: 'Inter', sans-serif; }
-.card:hover { transform: translateY(-8px); }
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --gold-dim: rgba(201,168,76,0.15);
+    --black: #080808;
+    --surface: #0f0f0f;
+    --surface-2: #161616;
+    --border: rgba(255,255,255,0.07);
+    --text: #F0EDE6;
+    --text-muted: rgba(240,237,230,0.45);
+    --text-dim: rgba(240,237,230,0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  #cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  }
+  #cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.3s, height 0.3s, opacity 0.3s;
+  }
+  body:hover #cursor-ring { opacity: 1; }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* Typography */
+  .display { font-family: 'Playfair Display', serif; }
+  .mono { font-family: 'DM Mono', monospace; }
+
+  /* HEADER */
+  header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 0 48px;
+    height: 72px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8,8,8,0.85);
+    backdrop-filter: blur(20px);
+    animation: fadeDown 0.8s ease both;
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .logo span { color: var(--gold); }
+
+  .nav-right { display: flex; align-items: center; gap: 32px; }
+  .nav-link {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--gold); }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--gold);
+    color: #080808;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border: none;
+    text-decoration: none;
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: rgba(255,255,255,0.15);
+    transform: translateX(-110%);
+    transition: transform 0.35s ease;
+  }
+  .btn-primary:hover::after { transform: translateX(0); }
+
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    border: 1px solid var(--gold);
+    text-decoration: none;
+    cursor: none;
+    transition: background 0.25s, color 0.25s;
+  }
+  .btn-outline:hover { background: var(--gold); color: #080808; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 140px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-grid {
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+  }
+
+  .hero-glow {
+    position: absolute; z-index: 0;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(40px);
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 900px; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .eyebrow-line { width: 32px; height: 1px; background: var(--gold); }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 900;
+    line-height: 1.03;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .hero-cta { display: flex; gap: 16px; animation: fadeUp 0.8s 0.65s ease both; }
+
+  .hero-stats {
+    position: absolute; right: 48px; bottom: 80px; z-index: 1;
+    display: flex; flex-direction: column; gap: 24px;
+    animation: fadeUp 0.8s 0.8s ease both;
+  }
+  .stat {
+    text-align: right;
+    padding-left: 24px;
+    border-left: 1px solid var(--border);
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+
+  /* SECTION BASE */
+  section {
+    padding: 100px 48px;
+    position: relative;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px; height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  /* PROCESS */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-top: 60px;
+  }
+  .process-item {
+    background: var(--black);
+    padding: 48px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .process-item:hover { background: var(--surface); }
+  .process-item::before {
+    content: attr(data-num);
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--text-dim);
+    position: absolute;
+    top: 24px; right: 32px;
+    line-height: 1;
+    transition: color 0.3s;
+  }
+  .process-item:hover::before { color: rgba(201,168,76,0.1); }
+  .process-icon {
+    width: 44px; height: 44px;
+    border: 1px solid var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 28px;
+    color: var(--gold);
+  }
+  .process-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .process-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+
+  /* DEMO SECTION */
+  .demo-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .demo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.3s, transform 0.4s cubic-bezier(.165,.84,.44,1);
+  }
+  .demo-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-6px);
+  }
+
+  .demo-card-inner { padding: 20px; }
+
+  .demo-card video {
+    width: 100%;
+    aspect-ratio: 9/16;
+    object-fit: cover;
+    display: block;
+    background: #111;
+  }
+
+  .demo-tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 4px 10px;
+    margin-bottom: 10px;
+  }
+
+  .demo-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* ABOUT */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-left { position: relative; }
+
+  .about-frame {
+    border: 1px solid var(--border);
+    padding: 40px;
+    position: relative;
+    background: var(--surface);
+  }
+  .about-frame::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: -8px;
+    right: 8px; bottom: 8px;
+    border: 1px solid rgba(201,168,76,0.2);
+    z-index: -1;
+  }
+
+  .founder-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .founder-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+  }
+
+  .about-right p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+  .about-right p strong { color: var(--text); font-weight: 500; }
+
+  .manifesto-line {
+    border-left: 2px solid var(--gold);
+    padding-left: 20px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text);
+    line-height: 1.6;
+    margin-top: 32px;
+  }
+
+  /* PRICING */
+  #pricing { background: var(--surface); }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+    align-items: start;
+  }
+
+  .plan-card {
+    background: var(--black);
+    border: 1px solid var(--border);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.4s cubic-bezier(.165,.84,.44,1);
+  }
+  .plan-card:hover { transform: translateY(-8px); border-color: rgba(201,168,76,0.4); }
+
+  .plan-card.featured {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(201,168,76,0.06) 0%, var(--black) 60%);
+  }
+  .plan-card.featured::before {
+    content: 'MOST POPULAR';
+    position: absolute; top: 20px; right: -28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+    background: var(--gold);
+    color: #080808;
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    font-weight: 500;
+  }
+
+  .plan-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  .plan-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .plan-price span { font-size: 1rem; color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-weight: 300; }
+  .plan-card.featured .plan-price { color: var(--gold); }
+
+  .plan-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 28px 0;
+  }
+
+  .plan-features { list-style: none; margin-bottom: 36px; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 12px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    line-height: 1.5;
+  }
+  .plan-features li:last-child { border-bottom: none; }
+  .plan-features li::before {
+    content: '—';
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 60px 48px 40px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--text);
+  }
+  .footer-logo span { color: var(--gold); }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .footer-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    padding: 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    white-space: nowrap;
+    padding: 18px 48px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-right: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .marquee-item .dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* REVEAL on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    header { padding: 0 24px; }
+    section { padding: 72px 24px; }
+    .hero { padding: 130px 24px 72px; }
+    .hero-stats { display: none; }
+    .process-grid { grid-template-columns: 1fr; }
+    .demo-layout { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
+    .about-layout { grid-template-columns: 1fr; gap: 48px; }
+    .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .plan-card.featured { transform: none; }
+  }
 </style>
 </head>
 
-<body class="bg-black text-white overflow-x-hidden">
+<body>
 
-<!-- Subtle Background -->
-<div class="fixed inset-0 -z-10 bg-gradient-to-br from-black via-black to-yellow-400/5"></div>
+<!-- Custom Cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-<!-- NAV -->
-<header class="border-b border-white/10">
-<div class="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-<h1 class="text-2xl font-bold tracking-tight">
-Shikado<span class="text-yellow-400">Clips</span>
-</h1>
-<a href="#pricing" class="text-sm font-semibold bg-yellow-400 text-black px-5 py-2 rounded-md hover:opacity-90 transition">
-View Plans
-</a>
-</div>
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">Shikado<span>Clips</span></a>
+  <nav class="nav-right">
+    <a href="#work" class="nav-link">Work</a>
+    <a href="#about" class="nav-link">About</a>
+    <a href="#pricing" class="nav-link">Pricing</a>
+    <a href="#pricing" class="btn-primary">Get Started</a>
+  </nav>
 </header>
 
 <!-- HERO -->
-<section class="py-28 px-6 text-center reveal">
-<div class="max-w-4xl mx-auto">
-<h2 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
-Short-Form Growth Systems<br/>
-<span class="text-yellow-400">For Finance & Self-Improvement Creators</span>
-</h2>
-<p class="text-white/60 text-lg mb-10">
-We transform your long-form content into high-retention short-form assets engineered for distribution, authority and scalable reach.
-</p>
-<a href="#pricing" class="bg-yellow-400 text-black font-semibold px-8 py-4 rounded-md hover:opacity-90 transition">
-Explore Plans
-</a>
-</div>
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-content">
+    <div class="eyebrow">
+      <span class="eyebrow-line"></span>
+      Finance &amp; Self-Improvement Creators
+    </div>
+
+    <h1>
+      Short-Form<br/>
+      Growth<br/>
+      <em>Systems.</em>
+    </h1>
+
+    <p class="hero-sub">
+      We transform your long-form content into high-retention short-form assets engineered for distribution, authority, and scalable reach.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#pricing" class="btn-primary">View Plans</a>
+      <a href="#work" class="btn-outline">See Our Work</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">90+</div>
+      <div class="stat-label">Clips / Month</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">3</div>
+      <div class="stat-label">Growth Plans</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">72H</div>
+      <div class="stat-label">Turnaround</div>
+    </div>
+  </div>
 </section>
 
-<!-- DEMO SECTION -->
-<section class="py-20 px-6 border-t border-white/10 reveal">
-<div class="max-w-6xl mx-auto text-center">
-<h3 class="text-3xl font-bold mb-8">
-1 Long Video → Multiple High-Retention Angles
-</h3>
-<p class="text-white/60 mb-12">
-Built specifically for creators who teach money, discipline, performance and growth.
-</p>
-
-<div class="grid md:grid-cols-3 gap-8">
-
-<div class="bg-white/5 p-4 rounded-lg border border-white/10 card transition duration-300">
-<video controls class="w-full rounded-md">
-<source src="demo1.mp4" type="video/mp4">
-</video>
-<p class="mt-4 text-sm text-white/60">Minimal Editing, Clean Look and Engaging hook.</p>
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marqueeTrack">
+    <!-- items duplicated in JS -->
+  </div>
 </div>
 
-<div class="bg-white/5 p-4 rounded-lg border border-white/10 card transition duration-300">
-<video controls class="w-full rounded-md">
-<source src="demo2.mp4" type="video/mp4">
-</video>
-<p class="mt-4 text-sm text-white/60">We find one hook that makes the viewers watch the entire clip</p>
-</div>
+<!-- HOW IT WORKS -->
+<section id="process" style="padding-top:100px; padding-bottom: 100px;">
+  <div class="reveal">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">One long video.<br/>Multiple <em style="font-style:italic;color:var(--gold);">high-retention</em> angles.</h2>
+  </div>
 
-<div class="bg-white/5 p-4 rounded-lg border border-white/10 card transition duration-300">
-<video controls class="w-full rounded-md">
-<source src="demo3.mp4" type="video/mp4">
-</video>
-<p class="mt-4 text-sm text-white/60">Tactical Breakdown</p>
-</div>
-
-</div>
-</div>
+  <div class="process-grid reveal">
+    <div class="process-item" data-num="01">
+      <div class="process-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="1"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="process-title">You Send Content</div>
+      <p class="process-desc">Upload your long-form podcast, course recording, or interview. We accept any format.</p>
+    </div>
+    <div class="process-item" data-num="02">
+      <div class="process-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <div class="process-title">We Engineer the Hooks</div>
+      <p class="process-desc">Our team identifies the highest-retention moments, rewrites hooks, and structures each clip for maximum watch-time.</p>
+    </div>
+    <div class="process-item" data-num="03">
+      <div class="process-icon">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 7.11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.88 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 9.91a16 16 0 006.18 6.18l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      </div>
+      <div class="process-title">Delivered &amp; Ready</div>
+      <p class="process-desc">Polished, platform-optimised clips arrive in your inbox. Ready to post. Ready to grow.</p>
+    </div>
+  </div>
 </section>
 
-<!-- ABOUT US -->
-<section class="py-24 px-6 border-t border-white/10 reveal">
-<div class="max-w-4xl mx-auto text-center">
-<h3 class="text-3xl font-bold mb-8 text-yellow-400">About ShikadoClips</h3>
+<hr class="divider"/>
 
-<p class="text-white/70 text-lg leading-relaxed mb-6">
-My name is Yogeshwar Yadav. I started ShikadoClips with a simple dream, to build real growth systems for serious creators.
-</p>
+<!-- DEMO / WORK -->
+<section id="work">
+  <div class="reveal">
+    <div class="section-label">Our Work</div>
+    <h2 class="section-title">Built for creators who teach<br/><em style="font-style:italic;color:var(--gold);">money, discipline &amp; performance.</em></h2>
+  </div>
 
-<p class="text-white/60 leading-relaxed mb-6">
-We are a small team of young creators. Yes, we are teens. But we are serious about our craft. We study retention, hook psychology, pacing and audience behavior every day. We treat this like a long-term mission, not a side project.
-</p>
+  <div class="demo-layout reveal">
 
-<p class="text-white/60 leading-relaxed">
-We believe one long video holds massive hidden potential. Our job is to unlock it and turn it into structured short-form growth that builds authority and multiplies reach.
-</p>
+    <div class="demo-card">
+      <video controls playsinline preload="metadata">
+        <source src="demo1.mp4" type="video/mp4">
+      </video>
+      <div class="demo-card-inner">
+        <div class="demo-tag">Clean Cut</div>
+        <p class="demo-desc">Minimal editing, clean look, and an engaging hook that commands immediate attention.</p>
+      </div>
+    </div>
 
-<p class="text-white/40 mt-8 text-sm">
-– Yogeshwar Yadav<br>
-Founder, ShikadoClips
-</p>
+    <div class="demo-card">
+      <video controls playsinline preload="metadata">
+        <source src="demo2.mp4" type="video/mp4">
+      </video>
+      <div class="demo-card-inner">
+        <div class="demo-tag">Hook Architecture</div>
+        <p class="demo-desc">We find the one hook that compels viewers to watch the entire clip from start to finish.</p>
+      </div>
+    </div>
 
-</div>
+    <div class="demo-card">
+      <video controls playsinline preload="metadata">
+        <source src="demo3.mp4" type="video/mp4">
+      </video>
+      <div class="demo-card-inner">
+        <div class="demo-tag">Tactical Breakdown</div>
+        <p class="demo-desc">Structured insight delivery that positions you as the authority in your niche.</p>
+      </div>
+    </div>
+
+  </div>
 </section>
+
+<hr class="divider"/>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-layout">
+
+    <div class="about-left reveal">
+      <div class="about-frame">
+        <div class="section-label" style="margin-bottom:28px;">Founder</div>
+        <div class="founder-name">Yogeshwar Yadav</div>
+        <div class="founder-role">Founder, ShikadoClips &nbsp;·&nbsp; TeamSavvy</div>
+        <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.75;">
+          Started with a simple mission: build real growth systems for serious creators. Every clip we produce is studied, engineered, and crafted with intention.
+        </p>
+        <div style="margin-top:32px; padding-top:24px; border-top:1px solid var(--border); display:flex; gap:32px;">
+          <div>
+            <div style="font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; color:var(--gold);">100%</div>
+            <div style="font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dim); margin-top:4px;">Craft-Focused</div>
+          </div>
+          <div>
+            <div style="font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; color:var(--gold);">Daily</div>
+            <div style="font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dim); margin-top:4px;">Research &amp; Study</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-right reveal">
+      <div class="section-label">About ShikadoClips</div>
+      <h2 class="section-title" style="font-size:2.2rem; margin-bottom:28px;">We are small.<br/>We are <em style="color:var(--gold); font-style:italic;">serious.</em></h2>
+      <p>
+        We are a <strong>small team of young creators</strong>. Yes, we are teens. But we are serious about our craft. We study retention, hook psychology, pacing and audience behavior every single day.
+      </p>
+      <p>
+        We treat this like a <strong>long-term mission</strong>, not a side project. Every clip we deliver has been thought about, dissected, and rebuilt to perform.
+      </p>
+      <p>
+        We believe one long video holds <strong>massive hidden potential</strong>. Our job is to unlock it — and turn it into structured short-form growth that builds your authority and multiplies your reach.
+      </p>
+      <div class="manifesto-line">
+        "One long video holds massive hidden potential. Our job is to unlock it."
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider"/>
 
 <!-- PRICING -->
-<section id="pricing" class="py-24 px-6 border-t border-white/10 reveal">
-<div class="max-w-6xl mx-auto text-center">
-<h3 class="text-4xl font-bold mb-12">
-Growth Plans
-</h3>
+<section id="pricing">
+  <div class="reveal" style="text-align:center; max-width: 600px; margin: 0 auto 0;">
+    <div class="section-label" style="justify-content:center;">Growth Plans</div>
+    <h2 class="section-title">Invest in your<br/><em style="font-style:italic; color:var(--gold);">distribution engine.</em></h2>
+    <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.75; margin-top:16px;">
+      Three plans designed for creators at different stages of growth. All include hook optimization and clean subtitles.
+    </p>
+  </div>
 
-<div class="grid md:grid-cols-3 gap-10">
+  <div class="pricing-grid reveal">
 
-<div class="bg-white/5 border border-white/10 p-8 rounded-lg card transition duration-300">
-<h4 class="text-xl font-bold mb-4">Starter Growth</h4>
-<p class="text-4xl font-extrabold mb-6">₹5K<span class="text-sm text-white/50"> / month</span></p>
-<ul class="text-white/60 space-y-3 mb-8 text-sm">
-<li>30 Short-Form Clips</li>
-<li>1 Platform Formatting</li>
-<li>Hook Optimization</li>
-<li>Clean Subtitles</li>
-<li>72 Hour Turnaround</li>
-</ul>
-<a href="/interest.html?plan=5K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:opacity-90 transition">
-Request Access
-</a>
-</div>
+    <!-- Starter -->
+    <div class="plan-card">
+      <div class="plan-name">Starter Growth</div>
+      <div class="plan-price">₹5K <span>/ month</span></div>
+      <hr class="plan-divider"/>
+      <ul class="plan-features">
+        <li>30 Short-Form Clips</li>
+        <li>1 Platform Formatting</li>
+        <li>Hook Optimization</li>
+        <li>Clean Subtitles</li>
+        <li>72 Hour Turnaround</li>
+      </ul>
+      <a href="/interest.html?plan=5K" class="btn-outline" style="width:100%; justify-content:center;">Request Access</a>
+    </div>
 
-<div class="bg-yellow-400/10 border border-yellow-400 p-8 rounded-lg scale-105 card transition duration-300">
-<h4 class="text-xl font-bold mb-4">Scale Engine</h4>
-<p class="text-4xl font-extrabold mb-6 text-yellow-400">₹10K<span class="text-sm text-white/50"> / month</span></p>
-<ul class="text-white/70 space-y-3 mb-8 text-sm">
-<li>45–60 Short Clips</li>
-<li>2 Platform Distribution</li>
-<li>Advanced Hook Restructuring</li>
-<li>Retention-Focused Editing</li>
-<li>Priority Turnaround</li>
-</ul>
-<a href="/interest.html?plan=10K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:opacity-90 transition">
-Request Access
-</a>
-</div>
+    <!-- Scale Engine (featured) -->
+    <div class="plan-card featured">
+      <div class="plan-name">Scale Engine</div>
+      <div class="plan-price">₹10K <span>/ month</span></div>
+      <hr class="plan-divider"/>
+      <ul class="plan-features">
+        <li>45–60 Short Clips</li>
+        <li>2 Platform Distribution</li>
+        <li>Advanced Hook Restructuring</li>
+        <li>Retention-Focused Editing</li>
+        <li>Priority Turnaround</li>
+      </ul>
+      <a href="/interest.html?plan=10K" class="btn-primary" style="width:100%; justify-content:center;">Request Access</a>
+    </div>
 
-<div class="bg-white/5 border border-white/10 p-8 rounded-lg card transition duration-300">
-<h4 class="text-xl font-bold mb-4">Authority System</h4>
-<p class="text-4xl font-extrabold mb-6">₹15K<span class="text-sm text-white/50"> / month</span></p>
-<ul class="text-white/60 space-y-3 mb-8 text-sm">
-<li>90+ Short Clips</li>
-<li>Multi-Platform Distribution</li>
-<li>Angle Strategy & Structuring</li>
-<li>Monthly Performance Insights</li>
-<li>Priority Workflow</li>
-</ul>
-<a href="/interest.html?plan=15K" class="bg-yellow-400 text-black font-semibold px-6 py-3 rounded-md hover:opacity-90 transition">
-Request Access
-</a>
-</div>
+    <!-- Authority System -->
+    <div class="plan-card">
+      <div class="plan-name">Authority System</div>
+      <div class="plan-price">₹15K <span>/ month</span></div>
+      <hr class="plan-divider"/>
+      <ul class="plan-features">
+        <li>90+ Short Clips</li>
+        <li>Multi-Platform Distribution</li>
+        <li>Angle Strategy &amp; Structuring</li>
+        <li>Monthly Performance Insights</li>
+        <li>Priority Workflow</li>
+      </ul>
+      <a href="/interest.html?plan=15K" class="btn-outline" style="width:100%; justify-content:center;">Request Access</a>
+    </div>
 
-</div>
-</div>
+  </div>
 </section>
 
 <!-- FOOTER -->
-<footer class="border-t border-white/10 py-10 text-center text-white/40 text-sm">
-© 2026 ShikadoClips. Built for Finance & Self-Improvement Creators.
+<footer>
+  <div class="footer-logo">Shikado<span>Clips</span></div>
+  <div class="footer-copy">© 2026 ShikadoClips — TeamSavvy</div>
+  <div class="footer-tag">Finance &amp; Self-Improvement Creators</div>
 </footer>
 
 <script>
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.utils.toArray(".reveal").forEach(section => {
-  gsap.from(section, {
-    scrollTrigger: {
-      trigger: section,
-      start: "top 85%"
-    },
-    opacity: 0,
-    y: 60,
-    duration: 1,
-    ease: "power3.out"
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  function animCursor() {
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+  document.querySelectorAll('a, button, video').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; cursor.style.background = 'transparent'; cursor.style.border = '2px solid var(--gold)'; cursor.style.borderRadius = '50%'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; cursor.style.background = 'var(--gold)'; cursor.style.border = 'none'; });
   });
-});
+
+  // Marquee
+  const items = [
+    'Hook Psychology', 'Retention Engineering', 'Short-Form Systems',
+    'Finance Creators', 'Self-Improvement', 'Platform Distribution',
+    'Angle Strategy', 'Authority Building', 'Priority Turnaround',
+    'Clean Subtitles', 'Hook Psychology', 'Retention Engineering', 'Short-Form Systems',
+    'Finance Creators', 'Self-Improvement', 'Platform Distribution',
+    'Angle Strategy', 'Authority Building', 'Priority Turnaround',
+    'Clean Subtitles',
+  ];
+  const track = document.getElementById('marqueeTrack');
+  const doubled = [...items, ...items];
+  doubled.forEach(t => {
+    const el = document.createElement('div');
+    el.className = 'marquee-item';
+    el.innerHTML = `<span class="dot"></span>${t}`;
+    track.appendChild(el);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => io.observe(r));
 </script>
 
 </body>
