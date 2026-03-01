@@ -593,18 +593,142 @@
     transform: translateY(0);
   }
 
-  /* RESPONSIVE */
+  /* Mobile nav drawer */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: none;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px; height: 1.5px;
+    background: var(--text);
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 60px; left: 0; right: 0;
+    background: rgba(8,8,8,0.97);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 16px;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 99;
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s;
+  }
+  .mobile-nav a:last-child { border-bottom: none; }
+  .mobile-nav a:hover { color: var(--gold); }
+  .mobile-nav .mobile-cta {
+    margin-top: 12px;
+    background: var(--gold);
+    color: #080808;
+    text-align: center;
+    font-weight: 500;
+    border-bottom: none;
+    padding: 14px;
+  }
+  .mobile-nav .mobile-cta:hover { opacity: 0.9; color: #080808; }
+
+  @media (max-width: 900px) {
+    .hamburger { display: flex; }
+  }
+  @media (max-width: 600px) {
+    .hamburger { cursor: pointer; }
+  }
+
+  /* Tablet */
   @media (max-width: 900px) {
     header { padding: 0 24px; }
+    .nav-link { display: none; }
+
     section { padding: 72px 24px; }
-    .hero { padding: 130px 24px 72px; }
+    .hero { padding: 120px 24px 72px; }
     .hero-stats { display: none; }
+
     .process-grid { grid-template-columns: 1fr; }
-    .demo-layout { grid-template-columns: 1fr; max-width: 380px; margin-left: auto; margin-right: auto; }
-    .about-layout { grid-template-columns: 1fr; gap: 48px; }
-    .pricing-grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
-    footer { flex-direction: column; gap: 16px; text-align: center; }
-    .plan-card.featured { transform: none; }
+
+    .demo-layout { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .demo-layout .demo-card:last-child { grid-column: 1 / -1; max-width: 320px; margin: 0 auto; }
+
+    .about-layout { grid-template-columns: 1fr; gap: 40px; }
+    .about-frame::before { display: none; }
+
+    .pricing-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .plan-card.featured { transform: none; grid-column: 1 / -1; }
+
+    footer { flex-direction: column; gap: 12px; text-align: center; }
+    .footer-tag { display: none; }
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    header { padding: 0 16px; height: 60px; }
+    .logo { font-size: 1.1rem; }
+    .btn-primary { font-size: 0.65rem; padding: 8px 14px; }
+
+    section { padding: 60px 16px; }
+    .hero { padding: 100px 16px 60px; min-height: auto; }
+
+    .hero h1 { font-size: clamp(2.4rem, 11vw, 3.5rem); }
+    .hero-sub { font-size: 0.92rem; }
+    .hero-cta { flex-direction: column; gap: 12px; }
+    .hero-cta a { width: 100%; justify-content: center; padding: 14px 20px; font-size: 0.72rem; }
+
+    .section-title { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+
+    .process-grid { grid-template-columns: 1fr; }
+    .process-item { padding: 32px 24px; }
+    .process-item::before { font-size: 3.5rem; top: 16px; right: 20px; }
+
+    .demo-layout { grid-template-columns: 1fr; max-width: 320px; margin-left: auto; margin-right: auto; }
+    .demo-layout .demo-card:last-child { grid-column: auto; max-width: 100%; margin: 0; }
+
+    .about-layout { grid-template-columns: 1fr; gap: 32px; }
+    .about-frame { padding: 28px 20px; }
+    .about-frame::before { display: none; }
+
+    .pricing-grid { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+    .plan-card { padding: 28px 24px; }
+    .plan-card.featured { grid-column: auto; transform: none; }
+    .plan-price { font-size: 2.4rem; }
+    .btn-outline, .btn-primary { font-size: 0.68rem; }
+
+    footer { padding: 40px 16px 28px; flex-direction: column; gap: 10px; text-align: center; }
+    .footer-tag { display: none; }
+
+    /* Hide custom cursor on touch devices */
+    #cursor, #cursor-ring { display: none; }
+    body { cursor: auto; }
+    a, button { cursor: pointer; }
+  }
+
+  /* Very small screens */
+  @media (max-width: 380px) {
+    .hero h1 { font-size: 2.1rem; }
+    .plan-price { font-size: 2rem; }
+    .about-frame { padding: 20px 16px; }
+    .process-item { padding: 24px 16px; }
   }
 </style>
 </head>
@@ -623,8 +747,17 @@
     <a href="#about" class="nav-link">About</a>
     <a href="#pricing" class="nav-link">Pricing</a>
     <a href="#pricing" class="btn-primary">Get Started</a>
+    <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 </header>
+
+<!-- Mobile nav drawer -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#work" onclick="closeMobileNav()">Work</a>
+  <a href="#about" onclick="closeMobileNav()">About</a>
+  <a href="#pricing" onclick="closeMobileNav()">Pricing</a>
+  <a href="#pricing" class="mobile-cta" onclick="closeMobileNav()">Get Started</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -761,7 +894,7 @@
     <div class="about-left reveal">
       <div class="about-frame">
         <div class="section-label" style="margin-bottom:28px;">Founder</div>
-        <div class="founder-name">Yogeshwar</div>
+        <div class="founder-name">Yogeshwar </div>
         <div class="founder-role">Founder, ShikadoClips &nbsp;·&nbsp; TeamSavvy</div>
         <p style="font-size:0.85rem; color:var(--text-muted); line-height:1.75;">
           Started with a simple mission: build real growth systems for serious creators. Every clip we produce is studied, engineered, and crafted with intention.
@@ -916,6 +1049,18 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(r => io.observe(r));
+
+  // Hamburger menu
+  const hamburger = document.getElementById("hamburger");
+  const mobileNav = document.getElementById("mobileNav");
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("open");
+    mobileNav.classList.toggle("open");
+  });
+  function closeMobileNav() {
+    hamburger.classList.remove("open");
+    mobileNav.classList.remove("open");
+  }
 </script>
 
 </body>
