@@ -381,24 +381,16 @@
   .process-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.75; }
 
   /* ── WORK / DEMO ── */
- <div class="demo-layout reveal">
+<div class="demo-layout reveal">
 
   <!-- VIDEO 1 -->
- .demo-video {
-  width: 100%;
-  max-width: 240px;
-  aspect-ratio: 9 / 16;
-  border: none;
-  border-radius: 12px;
-  display: block;
-  margin: 0 auto;
-}
-
-.demo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  <div class="demo-card">
+    <iframe 
+      class="demo-video"
+      src="https://www.youtube.com/embed/V7jFHF1SQd0"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
 
     <div class="demo-card-inner">
       <div class="demo-tag">Style 01</div>
@@ -408,21 +400,14 @@
   </div>
 
   <!-- VIDEO 2 -->
-.demo-video {
-  width: 100%;
-  max-width: 240px;
-  aspect-ratio: 9 / 16;
-  border: none;
-  border-radius: 12px;
-  display: block;
-  margin: 0 auto;
-}
+  <div class="demo-card">
+    <iframe 
+      class="demo-video"
+      src="https://www.youtube.com/embed/BnR-dj97Huw"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
 
-.demo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
     <div class="demo-card-inner">
       <div class="demo-tag">Style 02</div>
       <h3>Hook Architecture</h3>
@@ -431,21 +416,13 @@
   </div>
 
   <!-- VIDEO 3 -->
-  .demo-video {
-  width: 100%;
-  max-width: 240px;
-  aspect-ratio: 9 / 16;
-  border: none;
-  border-radius: 12px;
-  display: block;
-  margin: 0 auto;
-}
-
-.demo-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  <div class="demo-card">
+    <iframe 
+      class="demo-video"
+      src="https://www.youtube.com/embed/VqMcNyzmWok"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
 
     <div class="demo-card-inner">
       <div class="demo-tag">Style 03</div>
@@ -455,7 +432,6 @@
   </div>
 
 </div>
-
   /* ── ABOUT ── */
   #about { background: var(--surface); }
 
