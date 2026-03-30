@@ -381,32 +381,80 @@
   .process-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.75; }
 
   /* ── WORK / DEMO ── */
-  #work { background: var(--bg); }
+ <div class="demo-layout reveal">
 
-  .demo-layout {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 20px; margin-top: 56px;
-  }
-  .demo-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); overflow: hidden;
-    transition: border-color 0.3s, transform 0.4s cubic-bezier(.165,.84,.44,1);
-  }
-  .demo-card:hover { border-color: rgba(232,245,90,0.35); transform: translateY(-5px); }
-  .demo-card video {
-    width: 100%; aspect-ratio: 9/16;
-    object-fit: contain; display: block; background: var(--surface2);
-  }
-  .demo-card-inner { padding: 22px 24px; }
-  .demo-tag {
-    display: inline-block;
-    font-family: 'DM Mono', monospace; font-size: 0.62rem;
-    letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); border: 1px solid rgba(232,245,90,0.25);
-    padding: 4px 10px; border-radius: 4px; margin-bottom: 10px;
-  }
-  .demo-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
-  .demo-desc { font-size: 0.84rem; color: var(--text-muted); line-height: 1.65; }
+  <!-- VIDEO 1 -->
+ .demo-video {
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 9 / 16;
+  border: none;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+    <div class="demo-card-inner">
+      <div class="demo-tag">Style 01</div>
+      <h3>Clean Cut</h3>
+      <p class="demo-desc">Minimal editing, clean look, and an engaging hook that commands immediate attention.</p>
+    </div>
+  </div>
+
+  <!-- VIDEO 2 -->
+.demo-video {
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 9 / 16;
+  border: none;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+    <div class="demo-card-inner">
+      <div class="demo-tag">Style 02</div>
+      <h3>Hook Architecture</h3>
+      <p class="demo-desc">We find the one hook that compels viewers to watch the entire clip from start to finish.</p>
+    </div>
+  </div>
+
+  <!-- VIDEO 3 -->
+  .demo-video {
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 9 / 16;
+  border: none;
+  border-radius: 12px;
+  display: block;
+  margin: 0 auto;
+}
+
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+    <div class="demo-card-inner">
+      <div class="demo-tag">Style 03</div>
+      <h3>Tactical Breakdown</h3>
+      <p class="demo-desc">Structured insight delivery that positions you as the authority in your niche.</p>
+    </div>
+  </div>
+
+</div>
 
   /* ── ABOUT ── */
   #about { background: var(--surface); }
